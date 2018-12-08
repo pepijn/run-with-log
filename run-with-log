@@ -10,3 +10,5 @@ buffer="$(mktemp)"
 exec $all 2>&1 | while read -r line; do
     echo "$line" | tee -a "$buffer" | sed -e "s/^/[$cmd] /" | logger -s 2>&1
 done || tail -n 1 "$buffer" | terminal-notifier -title "$cmd"
+
+rm "$buffer"
